@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "531804412542",
+    "project_id": "yay-app-2023",
+    "storage_bucket": "yay-app-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531804412542:android:daaf2a0f6e04ab3e4e162f",
+        "android_client_info": {
+          "package_name": "com.kml.yay.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0nFbfUhjYG-lvL9BJf-qT1DPXRh3NM8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531804412542:android:3deba7ddcacc323a4e162f",
+        "android_client_info": {
+          "package_name": "com.kml.yay.app.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0nFbfUhjYG-lvL9BJf-qT1DPXRh3NM8M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
