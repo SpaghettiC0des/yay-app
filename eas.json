@@ -1,0 +1,40 @@
+{
+  "cli": {
+    "version": ">= 3.13.3",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "preview": {
+      "distribution": "internal"
+    },
+    "base": {
+      "env": {}
+    },
+    "devClient": {
+      "extends": "base",
+      "channel": "dev",
+      "distribution": "internal",
+      "developmentClient": true,
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "development": {
+      "extends": "base",
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "dev"
+    },
+    "production": {
+      "extends": "base",
+      "distribution": "store",
+      "channel": "prod"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

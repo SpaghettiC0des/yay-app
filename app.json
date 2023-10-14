@@ -6,6 +6,9 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "plugins": [
+      "expo-updates"
+    ],
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -15,9 +18,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.kml.yay.app",
       "supportsTablet": true
     },
     "android": {
+      "package": "com.kml.yay.app",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
@@ -25,6 +30,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f7f69ba4-12b1-4b33-bf4a-ef39c3b3744f"
+      }
+    },
+    "owner": "iamkarlmarx"
   }
 }
