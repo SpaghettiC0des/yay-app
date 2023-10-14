@@ -7,16 +7,16 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "plugins": [
+      "@react-native-firebase/app",
       [
         "expo-build-properties",
         {
           "ios": {
-            "userFrameworks": "static"
+            "useFrameworks": "static"
           }
         }
       ],
       "expo-updates",
-      "@react-native-firebase/app",
       "@react-native-firebase/auth",
       "@react-native-firebase/perf",
       "@react-native-firebase/crashlytics"
