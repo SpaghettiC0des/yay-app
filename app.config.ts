@@ -28,12 +28,17 @@ const getConfig = ({config}: {config: ExpoConfig}): ExpoConfig => {
     ios: {
       ...config.ios,
       bundleIdentifier: bundleId,
-      googleServicesFile: process.env.FIREBASE_IOS_CONFIG_PROD,
+      googleServicesFile: `./firebase-configs/${appVariant}.plist`,
+      supportsTablet: true,
     },
     android: {
       ...config.android,
       package: bundleId,
-      googleServicesFile: process.env.FIREBASE_ANDROID_CONFIG_PROD,
+      googleServicesFile: `./firebase-configs/${appVariant}.json`,
+      adaptiveIcon: {
+        foregroundImage: './assets/adaptive-icon.png',
+        backgroundColor: '#ffffff',
+      },
     },
   };
 };
