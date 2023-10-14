@@ -17,7 +17,6 @@ const bundleIdByProfile: Record<string, string> = {
 const bundleId = bundleIdByProfile[appVariant];
 
 const getConfig = ({config}: {config: ExpoConfig}): ExpoConfig => {
-  console.log(process.env.FIREBASE_ANDROID_CONFIG_PROD);
   return {
     ...config,
     // icon: `./icon${appVariant !== 'production' ? `-${appVariant}` : ''}.png`,
