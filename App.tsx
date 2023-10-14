@@ -7,7 +7,7 @@ import {StyleSheet, Text, View} from 'react-native';
 
 if (__DEV__) {
   firestore().useEmulator('localhost', 8080);
-  auth().useEmulator('localhost', 9099);
+  auth().useEmulator('http://localhost:9099');
   functions().useEmulator('localhost', 5001);
   storage().useEmulator('localhost', 9199);
 }
