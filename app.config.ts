@@ -28,18 +28,12 @@ const getConfig = ({config}: {config: ExpoConfig}): ExpoConfig => {
     ios: {
       ...config.ios,
       bundleIdentifier: bundleId,
-      googleServicesFile:
-        // use the EAS secret if it exists, otherwise use the local file
-        process.env.FIREBASE_IOS_CONFIG_PROD ??
-        `./firebase-configs/${appVariant}.plist`,
+      googleServicesFile: process.env.FIREBASE_IOS_CONFIG_PROD,
     },
     android: {
       ...config.android,
       package: bundleId,
-      googleServicesFile:
-        // use the EAS secret if it exists, otherwise use the local file
-        process.env.FIREBASE_ANDROID_CONFIG_PROD ??
-        `./firebase-configs/${appVariant}.json`,
+      googleServicesFile: process.env.FIREBASE_ANDROID_CONFIG_PROD,
     },
   };
 };
