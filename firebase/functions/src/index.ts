@@ -1,19 +1,36 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * import {onCall} from "firebase-functions/v2/https";
- * import {onDocumentWritten} from "firebase-functions/v2/firestore";
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+import {HttpsError, onRequest} from 'firebase-functions/v2/https';
+import * as admin from 'firebase-admin';
 
-import {onRequest} from "firebase-functions/v2/https";
-import * as logger from "firebase-functions/logger";
+import * as ytdl from 'ytdl-core';
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
+admin.initializeApp();
 
-export const helloWorld = onRequest((_request, response) => {
-  logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
+export const downloadYoutubeVideo = onRequest(async (request, response) => {
+  const {url, options} = request.body as {
+    url: string;
+    options: ytdl.downloadOptions;
+  };
+
+  if (!ytdl.validateURL(url) || !url) {
+    throw new HttpsError('invalid-argument', 'url is not valid');
+  }
+
+  const info = await ytdl.getInfo(url);
+  const {title} = info.videoDetails;
+  const newVideo = admin.storage().bucket().file(title);
+
+  const writeStream = newVideo.createWriteStream({resumable: false});
+
+  ytdl(url, options)
+    .pipe(writeStream)
+    .on('finish', () => {
+      response.send({
+        data: `${title} is uploaded`,
+      });
+    })
+    .on('error', () => {
+      response
+        .status(500)
+        .send(new HttpsError('aborted', 'unable to download video'));
+    });
 });
