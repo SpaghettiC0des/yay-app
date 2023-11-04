@@ -1,10 +1,15 @@
-// import * as functions from 'firebase-functions-test';
-import {HttpsError} from 'firebase-functions/v2/https';
+import fTest from 'firebase-functions-test';
+fTest(
+  {
+    projectId: 'yay-app-2023',
+    storageBucket: 'yay-app-2023.appspot.com',
+  },
+  './service-account.json',
+);
 import {downloadYoutubeVideo} from '.';
+import {HttpsError} from 'firebase-functions/v2/https';
 
-// const testEnv = functions();
-
-describe('offline', () => {
+describe('youtubedl', () => {
   it('should fail when the URL is not valid', async () => {
     try {
       await downloadYoutubeVideo(
