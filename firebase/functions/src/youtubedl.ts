@@ -1,34 +1,34 @@
-import {HttpsError, onRequest} from 'firebase-functions/v2/https';
+import {HttpsError, onCall} from 'firebase-functions/v2/https';
 import * as admin from 'firebase-admin';
-
 import ytdl from 'ytdl-core';
 
-export const downloadYoutubeVideo = onRequest(async (request, response) => {
-  const {url, options} = request.body as {
-    url: string;
-    options: ytdl.downloadOptions;
-  };
+type Req = {
+  url: string;
+  options?: ytdl.downloadOptions;
+};
+export const downloadYoutubeVideo = onCall<Req>(async (request) => {
+  const {url, options} = request.data;
 
   if (!ytdl.validateURL(url) || !url) {
-    throw new HttpsError('invalid-argument', 'url is not valid');
+    return Promise.reject(
+      new HttpsError('invalid-argument', 'url is not valid'),
+    );
   }
 
   const info = await ytdl.getInfo(url);
   const {title} = info.videoDetails;
-  const newVideo = admin.storage().bucket().file(title);
+  const newVideo = admin.storage().bucket().file(`${title}.mp4`);
 
   const writeStream = newVideo.createWriteStream({resumable: false});
 
-  ytdl(url, options)
-    .pipe(writeStream)
-    .on('finish', () => {
-      response.send({
-        data: `${title} is uploaded`,
+  return new Promise((resolve) => {
+    ytdl(url, options)
+      .pipe(writeStream)
+      .on('finish', () => {
+        resolve({url: newVideo.publicUrl(), title, info});
+      })
+      .on('error', () => {
+        Promise.reject(new HttpsError('internal', 'unable to download video'));
       });
-    })
-    .on('error', () => {
-      response
-        .status(500)
-        .send(new HttpsError('aborted', 'unable to download video'));
-    });
+  });
 });
